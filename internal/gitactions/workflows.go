@@ -10,41 +10,41 @@ import (
 	"github.com/isadri/cicd-dashboard/internal/utils"
 )
 
-type step struct {
-	Name   string
-	Status string
-	Number int
+type User struct {
+	Login   string
+	HTMLURL string `json:"html_url"`
 }
 
-type Job struct {
-	URL          string
-	Status       string
-	Name         string
-	Steps        []step
-	WorkflowName string
-	HeadBranch   string
+type Commit struct {
+	Message string
 }
 
-type workflow struct {
-	ID        int
-	Name      string
-	Path      string
-	State     string
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-	URL       string
-	HTMLURL   string `json:"html_url"`
+type Repo struct {
+	Name    string
+	HTMLURL string `json:"html_url"`
 }
 
-type Workflows struct {
-	TotalCount int        `json:"total_count"`
-	Items      []workflow `json:"workflows"`
+type Workflow struct {
+	Repository Repo
+	Name       string
+	Branch     string `json:"head_branch"`
+	Status     string
+	HTMLURL    string    `json:"html_url"`
+	RunAttempt int       `json:"run_attempt"`
+	StartedAt  time.Time `json:"run_started_at"`
+	Actor      User      `json:"triggering_actor"`
+	HeadCommit Commit    `json:"head_commit"`
 }
 
-func GetWorkflows(owner, repo string) (*Workflows, error) {
+type WorkflowRuns struct {
+	Workflows []Workflow `json:"workflow_runs"`
+}
+
+func GetWorkflowRuns(owner, repo string) (*WorkflowRuns, error) {
 	log := utils.GetLogger()
-	log.Infof("fetch %s", urls.GetWorkflowsUrl(owner, repo))
-	req, err := http.NewRequest(http.MethodGet, urls.GetWorkflowsUrl(owner, repo), nil)
+	reqUrl := urls.GetWorkflowsRunsUrl(owner, repo)
+	log.Infof("request to %s", reqUrl)
+	req, err := http.NewRequest(http.MethodGet, reqUrl, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -55,12 +55,13 @@ func GetWorkflows(owner, repo string) (*Workflows, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("fetch workflows failed: %s", resp.Status)
+		return nil, fmt.Errorf("get workflow runs failed: %s", resp.Status)
 	}
-	var workflows Workflows
+
+	var workflows WorkflowRuns
 
 	if err := json.NewDecoder(resp.Body).Decode(&workflows); err != nil {
-		return nil, fmt.Errorf("failed to decode response body: %s", err)
+		return nil, err
 	}
 	return &workflows, nil
 }
