@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- <link rel="stylesheet" href="/static/css/workflows.css"> -->
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+
+      table, th, td {
+        border: 1px solid black;
+      }
+
+      th {
+        background-color: #f2f2f2;
+        color: #333;
+      }
+
+      h1 {
+        color: #2a7ae2;
+      }
+    </style>
   </head>
   <body>
     <h1>{{.TotalCount}} workflows</h1>
+    {{range .Items}}
     <table>
-      {{range .Items}}
       <tr style='text-align: left'>
         <th>ID</th>
         <td>{{.ID}}</td>
@@ -39,7 +57,7 @@
         <th>HTML url</th>
         <td>{{.HTMLURL}}</td>
       </tr>
-      {{end}}
     </table>
+    {{end}}
   </body>
 </html>

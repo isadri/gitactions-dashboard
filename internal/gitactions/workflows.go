@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-type Step struct {
+type step struct {
 	Name   string
 	Status string
 	Number int
@@ -18,12 +18,12 @@ type Job struct {
 	URL          string
 	Status       string
 	Name         string
-	Steps        []Step
+	Steps        []step
 	WorkflowName string
 	HeadBranch   string
 }
 
-type Workflow struct {
+type workflow struct {
 	ID        int
 	Name      string
 	Path      string
@@ -36,7 +36,7 @@ type Workflow struct {
 
 type Workflows struct {
 	TotalCount int        `json:"total_count"`
-	Items      []Workflow `json:"workflows"`
+	Items      []workflow `json:"workflows"`
 }
 
 func GetWorkflows(owner, repo string) (*Workflows, error) {
