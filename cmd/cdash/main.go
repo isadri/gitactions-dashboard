@@ -21,7 +21,7 @@ func run(w http.ResponseWriter, r *http.Request) {
 
 	log.Print("create dashboard.html template")
 	templ := template.Must(template.New("dashboard.html").
-		ParseFiles("web/templates/dashboard.html"))
+		ParseFiles("web/template/dashboard.html"))
 	log.Print("execute dashboard.html template")
 	if err := templ.Execute(w, workflows); err != nil {
 		log.Print(err)
