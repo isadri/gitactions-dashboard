@@ -9,34 +9,34 @@ import (
 )
 
 type Step struct {
-	Name	string
-	Status	string
-	Number	int
+	Name   string
+	Status string
+	Number int
 }
 
 type Job struct {
-	URL				string
-	Status			string
-	Name			string
-	Steps			[]Step
-	WorkflowName	string
-	HeadBranch		string
+	URL          string
+	Status       string
+	Name         string
+	Steps        []Step
+	WorkflowName string
+	HeadBranch   string
 }
 
 type Workflow struct {
-	ID			int
-	Name		string
-	Path		string
-	State		string
-	CreatedAt	time.Time	`json:"created_at"`
-	UpdatedAt	time.Time	`json:"updated_at"`
-	URL			string
-	HTMLURL		string		`json:"html_url"`
+	ID        int
+	Name      string
+	Path      string
+	State     string
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
+	URL       string
+	HTMLURL   string `json:"html_url"`
 }
 
 type Workflows struct {
-	TotalCount	int	`json:"total_count"`
-	Items		[]Workflow	`json:"workflows"`
+	TotalCount int        `json:"total_count"`
+	Items      []Workflow `json:"workflows"`
 }
 
 func GetWorkflows(owner, repo string) (*Workflows, error) {
@@ -46,7 +46,7 @@ func GetWorkflows(owner, repo string) (*Workflows, error) {
 		return nil, err
 	}
 	req.Header.Add("Accept", "application/vnd.github+json")
-	req.Header.Add("Authorization", "Bearer " + token)
+	req.Header.Add("Authorization", "Bearer "+token)
 	req.Header.Add("X-GitHub-Api-Version", "2022-11-28")
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
