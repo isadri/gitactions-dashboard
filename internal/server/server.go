@@ -4,7 +4,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
-	
+
 	"github.com/isadri/cicd-dashboard/internal/gitactions"
 )
 
