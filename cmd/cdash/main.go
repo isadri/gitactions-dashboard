@@ -1,9 +1,11 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
+	// "encoding/json"
+	// "fmt"
+	"html/template"
 	"log"
+	"os"
 
 	"github.com/isadri/cicd-dashboard/internal/gitactions"
 
@@ -20,9 +22,9 @@ func main() {
 	if workflows, err = gitactions.GetWorkflows("isadri", "eval"); err != nil {
 		log.Fatal(err)
 	}
-	data, err := json.MarshalIndent(*workflows, "", "    ")
-	if err != nil {
-		log.Fatalf("error marshaling JSON: %s", err)
+	templ := template.Must(template.New("dashboard.html").
+		ParseFiles("web/templates/dashboard.html"))
+	if err := templ.Execute(os.Stdout, workflows); err != nil {
+		log.Fatal(err)
 	}
-	fmt.Println(string(data))
 }

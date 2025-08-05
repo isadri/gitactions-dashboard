@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>{{.TotalCount}} workflows</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Path</th>
+                <th>State</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Url</th>
+                <th>HTML url</th>
+            </tr>
+            {{range .Items}}
+            <tr>
+                <td>{{.ID}}</td>
+                <td>{{.Name}}</td>
+                <td>{{.Path}}</td>
+                <td>{{.State}}</td>
+                <td>{{.CreatedAt}}</td>
+                <td>{{.UpdatedAt}}</td>
+                <td>{{.URL}}</td>
+                <td>{{.HTMLURL}}</td>
+            </tr>
+            {{end}}
+        </table>
+    </body>
+</html>
