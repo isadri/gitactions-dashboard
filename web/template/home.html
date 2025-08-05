@@ -11,11 +11,9 @@
   <body>
     <h1>Fasgo Repositories</h1>
     <ol>
-      <li><a href="http://localhost:8000/store">Store</a></li>
-      <li><a href="http://localhost:8000/customer">Customer</a></li>
-      <li><a href="http://localhost:8000/driver">Driver</a></li>
-      <li><a href="http://localhost:8000/order">Order</a></li>
+      {{range .}}
+      <li><a href="http://localhost:8000/repo?name={{.Name}}" />{{.FullName}}</li>
+      {{end}}
     </ol>
-
   </body>
 </html>
