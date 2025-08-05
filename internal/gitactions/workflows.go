@@ -3,7 +3,6 @@ package gitactions
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 
@@ -43,7 +42,8 @@ type Workflows struct {
 }
 
 func GetWorkflows(owner, repo string) (*Workflows, error) {
-	log.Printf("server trying to fetch %s", urls.GetWorkflowsUrl(owner, repo))
+	log := utils.GetLogger()
+	log.Infof("fetch %s", urls.GetWorkflowsUrl(owner, repo))
 	req, err := http.NewRequest(http.MethodGet, urls.GetWorkflowsUrl(owner, repo), nil)
 	if err != nil {
 		return nil, err
