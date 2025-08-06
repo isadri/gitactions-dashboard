@@ -13,6 +13,8 @@ import (
 func RegisterFuncs() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/repo", repoHandler)
+	fs := http.FileServer(http.Dir("web/static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 }
 
 func homeHandler(w http.ResponseWriter, req *http.Request) {
