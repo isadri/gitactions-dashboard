@@ -32,7 +32,7 @@
         <td><a href="{{.Actor.HTMLURL}}">{{.Actor.Login}}</a></td>
         <td>{{.StartedAt | dateFormat}}</td>
         <td>{{.RunAttempt}}</td>
-        <td><a href="http://localhost:8000/jobs?repo={{.Repository.Name}}&runid={{.ID}}">Jobs</a></td>
+        <td><a href="/repo/jobs?repo={{.Repository.Name}}&runid={{.ID}}">Jobs</a></td>
       </tr>
       {{end}}
     </table>

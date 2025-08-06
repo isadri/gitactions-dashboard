@@ -15,8 +15,8 @@ import (
 func RegisterFuncs() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/repo", repoHandler)
-	http.HandleFunc("/jobs", jobHandler)
-	http.HandleFunc("/logs", logsHandler)
+	http.HandleFunc("/repo/jobs", jobHandler)
+	http.HandleFunc("/repo/jobs/logs", logsHandler)
 
 	fs := http.FileServer(http.Dir("web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
