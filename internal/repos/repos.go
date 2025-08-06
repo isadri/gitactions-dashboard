@@ -35,7 +35,7 @@ func GetRepos(org string) ([]Repo, error) {
 	defer resp.Body.Close()
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("get %s repositories failed: %s",
-			org, err)
+			org, resp.Status)
 	}
 
 	var repos []Repo
