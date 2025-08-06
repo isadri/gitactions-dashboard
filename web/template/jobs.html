@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CDash</title>
+    <link rel="stylesheet" href="/static/css/jobs.css">
+    <link rel="icon" href="/static/assets/rocket-icon.png" type="image/png">
+  </head>
+  <body>
+    <div class="container">
+      <h1>🚀 Workflow Run Details</h1>
+
+      {{range .Jobs}}
+      <div class="info-boxes">
+        <div class="info-box">
+            <span class="info-title">🧾 Name</span>
+            <span class="info-value">{{.Name}}</span>
+        </div>
+        <div class="info-box">
+            <span class="info-title">🌿 Branch</span>
+            <span class="info-value">{{.Branch}}</span>
+        </div>
+        <div class="info-box">
+            <span class="info-title">📌 Conclusion</span>
+            <span class="info-value">{{.Conclusion}}</span>
+        </div>
+        <div class="info-box">
+            <span class="info-title">📊 Status</span>
+            <span class="info-value">{{.Status}}</span>
+        </div>
+        <div class="info-box">
+            <span class="info-title">📂 Workflow</span>
+            <span class="info-value">{{.WorkflowName}}</span>
+        </div>
+        <div class="info-box">
+            <span class="info-title">⏱️ Started</span>
+            <span class="info-value">{{.StartedAt | dateFormat}}</span>
+        </div>
+      </div>
+
+      <h2>🧩 Steps</h2>
+      <div class="steps">
+        {{range .Steps}}
+        <details class="step-card">
+          <summary>
+            <div class="step-summary">
+              <div class="step-name">
+                <span class="status-dot status-{{replace .Conclusion "-" "_" -1}}"></span>
+                <strong>{{.Name}}</strong>
+              </div>
+              <div class="step-status">{{.Conclusion}}</div>
+            </div>
+          </summary>
+          <div class="step-details">
+            <p><strong>🧾 Name:</strong> {{.Name}}</p>
+            <p><strong>✅ Conclusion:</strong> {{.Conclusion}}</p>
+            <p><strong>⏱️ Started:</strong> {{.StartedAt | dateFormat}}</p>
+            <p><strong>🏁 Completed:</strong> {{.CompletedAt | dateFormat}}</p>
+          </div>
+        </details>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </body>
+</html>
