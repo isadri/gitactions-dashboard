@@ -12,6 +12,7 @@ import (
 	"github.com/isadri/cicd-dashboard/internal/utils"
 )
 
+// type Org
 func RegisterFuncs() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/repo", repoHandler)
@@ -25,19 +26,27 @@ func homeHandler(w http.ResponseWriter, req *http.Request) {
 	log := utils.GetLogger()
 	log.Infof("%s %s from %s", req.Method, req.URL.Path, req.RemoteAddr)
 
-	log.Info("get fasgo-app repositories")
-	repos, err := repos.GetRepos(os.Getenv("ORG_NAME"))
+	log.Infof("get %s repositories", os.Getenv("ORG_NAME"))
+	orgRepos, err := repos.GetRepos(os.Getenv("ORG_NAME"))
 	if err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
+	org := struct {
+		Name  string
+		Repos []repos.Repo
+	}{
+		os.Getenv("ORG_NAME"),
+		orgRepos,
+	}
+
 	log.Info("creating home.index template")
 	templ := template.Must(template.New("home.html").
 		ParseFiles("web/template/home.html"))
 	log.Info("executing home.html template")
-	if err := templ.Execute(w, repos); err != nil {
+	if err := templ.Execute(w, org); err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 	}
