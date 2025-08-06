@@ -1,0 +1,123 @@
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-glass: rgba(255, 255, 255, 0.03);
+  --text-primary: #f5f5f5;
+  --text-muted: #999999;
+  --accent-blue: #00b4d8;
+  --accent-blue-hover: #0096c7;
+  --border-color: #2a2a2a;
+  --shadow-light: rgba(255, 255, 255, 0.02);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, var(--bg-primary), #0d0d0d);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  background: var(--bg-glass);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+h1 {
+  font-weight: 700;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent-blue), #48cae4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.nav-links a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
+  outline: none;
+}
+
+.repo-list {
+  list-style-position: inside;
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.repo-list li {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+
+  background-color: rgba(255, 255, 255, 0.05); /* subtle translucent bg */
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.repo-list a {
+  color: var(--accent-blue);
+  text-decoration: none;
+  display: block; /* so the entire box is clickable */
+  transition: color 0.3s ease;
+}
+
+.repo-list a:hover,
+.repo-list a:focus {
+  color: var(--accent-blue-hover);
+  text-decoration: underline;
+  outline: none;
+}
+
+.repo-list li:hover,
+.repo-list li:focus-within {
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+

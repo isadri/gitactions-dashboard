@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <!-- <link rel="stylesheet" href="/static/css/dashboard.css"> -->
-    <style>
-    h1 {
-      color: #2a7ae2;
-    }
-</style>
-  </head>
-  <body>
-    <h1>Fasgo Repositories</h1>
-    <ol>
-      {{range .}}
-      <li><a href="http://localhost:8000/repo?name={{.Name}}" />{{.FullName}}</li>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CDash</title>
+  <link rel="stylesheet" href="/static/css/home.css" />
+  <link rel="icon" href="/static/assets/rocket-icon.png" type="image/png" />
+</head>
+<body>
+  <main class="container">
+    <h1>{{.Name}} Repositories</h1>
+
+    <ul class="repo-list">
+      {{range .Repos}}
+      <li>
+        <a href="/repo?name={{.Name}}">
+          {{.FullName}}
+        </a>
+      </li>
       {{end}}
-    </ol>
-  </body>
+    </ul>
+  </main>
+</body>
 </html>
