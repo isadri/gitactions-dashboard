@@ -1,8 +1,15 @@
 package urls
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 func GetReposUrl(org string) string {
+	if os.Getenv("ORG_TYPE") == "user" {
+		return fmt.Sprintf("https://api.github.com/users/%s/repos",
+			org)
+	}
 	return fmt.Sprintf("https://api.github.com/orgs/%s/repos",
 		org)
 }
