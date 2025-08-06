@@ -9,6 +9,33 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func main() {
+	log := utils.GetLogger()
+
+	log.Info("loading environment variables in .env")
+	if envFileExists() {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+	}
+	if !requiredEnvVarsExist() {
+		os.Exit(1)
+	}
+	server.RegisterFuncs()
+	log.Info("starting server")
+	log.Info("server listening on 0.0.0.0:8000")
+	log.Fatal(http.ListenAndServe("0.0.0.0:8000", nil))
+}
+
+func envFileExists() bool {
+	info, err := os.Stat(".env")
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
 func requiredEnvVarsExist() bool {
 	log := utils.GetLogger()
 
@@ -21,21 +48,4 @@ func requiredEnvVarsExist() bool {
 		return false
 	}
 	return true
-}
-
-func main() {
-	log := utils.GetLogger()
-
-	log.Info("loading environment variables in .env")
-	err := godotenv.Load()
-	if !requiredEnvVarsExist() {
-		os.Exit(1)
-	}
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	server.RegisterFuncs()
-	log.Info("starting server")
-	log.Info("server listening on localhost:8000")
-	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
