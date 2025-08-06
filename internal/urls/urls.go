@@ -3,12 +3,22 @@ package urls
 import (
 	"fmt"
 	"os"
+	"strconv"
+
+	"github.com/isadri/gitactions-dashboard/internal/utils"
 )
 
 func GetReposUrl(org string) string {
-	if os.Getenv("ORG_TYPE") == "user" {
-		return fmt.Sprintf("https://api.github.com/users/%s/repos",
-			org)
+	if os.Getenv("FOR_USER") != "" {
+		log := utils.GetLogger()
+		forUser, err := strconv.Atoi(os.Getenv("FOR_USER"))
+		if err != nil {
+			log.Fatalf("invalid value for FOR_USER variable: %s", err)
+		}
+		if forUser != 0 {
+			return fmt.Sprintf("https://api.github.com/users/%s/repos",
+				org)
+		}
 	}
 	return fmt.Sprintf("https://api.github.com/orgs/%s/repos",
 		org)
