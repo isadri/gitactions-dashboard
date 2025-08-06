@@ -7,25 +7,27 @@
     <link rel="stylesheet" href="/static/css/workflows.css">
   </head>
   <body>
-    <h1>Workflows Runs</h1>
+    <h1>Workflow Runs</h1>
     <table>
       <tr style='text-align: center'>
-        <!-- <th>Repository</th> -->
         <th>Name</th>
         <th>Branch</th>
         <th>Status</th>
         <th>Commit</th>
         <th>Actor</th>
         <th>Started</th>
-        <th>Run Attemp</th>
+        <th>Run Attempt</th>
       </tr>
-
       {{range .Workflows}}
       <tr style='text-align: center'>
-        <!-- <td><a href="{{.Repository.HTMLURL}}">{{.Repository.Name}}</a></td> -->
         <td><a href="{{.HTMLURL}}">{{.Name}}</a></td>
         <td>{{.Branch}}</td>
-        <td>{{.Status}}</td>
+        <td>
+          <div class="status-indicator">
+            <span class="status-dot status-{{.Status}}"></span>
+            <span class="status-text">{{.Status}}</span>
+          </div>
+        </td>
         <td>{{.HeadCommit.Message}}</td>
         <td><a href="{{.Actor.HTMLURL}}">{{.Actor.Login}}</a></td>
         <td>{{.StartedAt | dateFormat}}</td>
