@@ -25,10 +25,11 @@ type Repo struct {
 }
 
 type Workflow struct {
+	ID         int64
 	Repository Repo
 	Name       string
 	Branch     string `json:"head_branch"`
-	Status     string
+	Conclusion string
 	HTMLURL    string    `json:"html_url"`
 	RunAttempt int       `json:"run_attempt"`
 	StartedAt  time.Time `json:"run_started_at"`

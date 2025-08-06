@@ -24,14 +24,15 @@
         <td>{{.Branch}}</td>
         <td>
           <div class="status-indicator">
-            <span class="status-dot status-{{.Status}}"></span>
-            <span class="status-text">{{.Status}}</span>
+            <span class="status-dot status-{{replace .Conclusion "-" "_" -1}}"></span>
+            <span class="status-text">{{.Conclusion}}</span>
           </div>
         </td>
         <td>{{.HeadCommit.Message}}</td>
         <td><a href="{{.Actor.HTMLURL}}">{{.Actor.Login}}</a></td>
         <td>{{.StartedAt | dateFormat}}</td>
         <td>{{.RunAttempt}}</td>
+        <td><a href="http://localhost:8000/jobs?repo={{.Repository.Name}}&runid={{.ID}}">Jobs</a></td>
       </tr>
       {{end}}
     </table>
