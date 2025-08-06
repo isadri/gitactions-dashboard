@@ -28,3 +28,8 @@ func GetWorkflowRunJobsUrl(owner, repo string, runId string) string {
 	return fmt.Sprintf("https://api.github.com/repos/%s/%s/actions/runs/%s/jobs",
 		owner, repo, runId)
 }
+
+func GetJobLogsUrl(owner, repo string, jobId string) string {
+	return fmt.Sprintf("https://api.github.com/repos/%s/%s/actions/jobs/%s/logs",
+		owner, repo, jobId)
+}

@@ -3,6 +3,7 @@ package gitactions
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 	"time"
 
@@ -59,4 +60,29 @@ func GetWorkflowRunJobs(owner, repo string, runId string) (*WorkflowRunsJobs, er
 		return nil, err
 	}
 	return &jobs, nil
+}
+
+func GetJobLogs(owner, repo string, jobId string) ([]byte, error) {
+	log := utils.GetLogger()
+	reqUrl := urls.GetJobLogsUrl(owner, repo, jobId)
+
+	log.Infof("request to %s", reqUrl)
+	req, err := http.NewRequest(http.MethodGet, reqUrl, nil)
+	if err != nil {
+		return nil, err
+	}
+	utils.SetGitHubHeaders(req)
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("get logs failed: %s", resp.Status)
+	}
+	bodyBytes, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("reading response body failed: ", err)
+	}
+	return bodyBytes, nil
 }

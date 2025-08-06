@@ -12,11 +12,11 @@ import (
 	"github.com/isadri/cicd-dashboard/internal/utils"
 )
 
-// type Org
 func RegisterFuncs() {
 	http.HandleFunc("/", homeHandler)
 	http.HandleFunc("/repo", repoHandler)
 	http.HandleFunc("/jobs", jobHandler)
+	http.HandleFunc("/logs", logsHandler)
 
 	fs := http.FileServer(http.Dir("web/static"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
@@ -109,6 +109,15 @@ func jobHandler(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
+
+	data := struct {
+		RepoName string
+		Jobs     *gitactions.WorkflowRunsJobs
+	}{
+		repoName,
+		jobs,
+	}
+
 	log.Info("create jobs.html template")
 	templ := template.Must(template.New("jobs.html").
 		Funcs(template.FuncMap{
@@ -116,10 +125,37 @@ func jobHandler(w http.ResponseWriter, req *http.Request) {
 			"replace":    strings.Replace,
 		}).ParseFiles("web/template/jobs.html"))
 	log.Info("executing jobs.html template")
-	if err := templ.Execute(w, *jobs); err != nil {
+	if err := templ.Execute(w, data); err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 	}
+}
+
+func logsHandler(w http.ResponseWriter, req *http.Request) {
+	log := utils.GetLogger()
+	log.Infof("%s %s from %s", req.Method, req.URL.Path, req.RemoteAddr)
+
+	repoName := req.URL.Query().Get("repo")
+	if repoName == "" {
+		log.Error("missing repository name path paramter")
+		w.Write([]byte("missing repository name path paramter"))
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	jobId := req.URL.Query().Get("jobid")
+	if jobId == "" {
+		log.Error("missing job id parameter")
+		w.Write([]byte("missing job id parameter"))
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	logs, err := gitactions.GetJobLogs(os.Getenv("ORG_NAME"), repoName, jobId)
+	if err != nil {
+		log.Error(err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+	w.Write(logs)
 }
 
 func dateFormat(t time.Time) string {
