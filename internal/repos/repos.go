@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/isadri/cicd-dashboard/internal/urls"
-	"github.com/isadri/cicd-dashboard/internal/utils"
+	"github.com/isadri/gitactions-dashboard/internal/urls"
+	"github.com/isadri/gitactions-dashboard/internal/utils"
 )
 
 type user struct {

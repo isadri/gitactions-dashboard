@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/isadri/cicd-dashboard/internal/server"
-	"github.com/isadri/cicd-dashboard/internal/utils"
+	"github.com/isadri/gitactions-dashboard/internal/server"
+	"github.com/isadri/gitactions-dashboard/internal/utils"
 	"github.com/joho/godotenv"
 )
 

@@ -1,4 +1,4 @@
-module github.com/isadri/cicd-dashboard
+module github.com/isadri/gitactions-dashboard
 
 go 1.24.2
 

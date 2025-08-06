@@ -7,9 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/isadri/cicd-dashboard/internal/gitactions"
-	"github.com/isadri/cicd-dashboard/internal/repos"
-	"github.com/isadri/cicd-dashboard/internal/utils"
+	"github.com/isadri/gitactions-dashboard/internal/gitactions"
+	"github.com/isadri/gitactions-dashboard/internal/repos"
+	"github.com/isadri/gitactions-dashboard/internal/utils"
 )
 
 func RegisterFuncs() {
