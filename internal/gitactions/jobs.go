@@ -82,7 +82,7 @@ func GetJobLogs(owner, repo string, jobId string) ([]byte, error) {
 	}
 	bodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
-		return nil, fmt.Errorf("reading response body failed: ", err)
+		return nil, fmt.Errorf("reading response body failed: %s", err)
 	}
 	return bodyBytes, nil
 }
