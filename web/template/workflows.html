@@ -28,7 +28,7 @@
         <td>{{.Status}}</td>
         <td>{{.HeadCommit.Message}}</td>
         <td><a href="{{.Actor.HTMLURL}}">{{.Actor.Login}}</a></td>
-        <td>{{.StartedAt}}</td>
+        <td>{{.StartedAt | dateFormat}}</td>
         <td>{{.RunAttempt}}</td>
       </tr>
       {{end}}

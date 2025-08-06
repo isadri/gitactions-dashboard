@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/isadri/cicd-dashboard/internal/gitactions"
 	"github.com/isadri/cicd-dashboard/internal/repos"
@@ -59,10 +60,15 @@ func repoHandler(w http.ResponseWriter, req *http.Request) {
 	}
 	log.Info("creating workflows.html template")
 	templ := template.Must(template.New("workflows.html").
+		Funcs(template.FuncMap{"dateFormat": dateFormat}).
 		ParseFiles("web/template/workflows.html"))
 	log.Info("executing workflows.html")
 	if err := templ.Execute(w, *workflows); err != nil {
 		log.Error(err)
 		w.WriteHeader(http.StatusBadRequest)
 	}
+}
+
+func dateFormat(t time.Time) string {
+	return t.Format("2006-01-02 15:04")
 }
