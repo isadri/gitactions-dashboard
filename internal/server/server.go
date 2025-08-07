@@ -138,14 +138,14 @@ func logsHandler(w http.ResponseWriter, req *http.Request) {
 	repoName := req.URL.Query().Get("repo")
 	if repoName == "" {
 		log.Error("missing repository name path paramter")
-		w.Write([]byte("missing repository name path paramter"))
+		_, _ = w.Write([]byte("missing repository name path paramter"))
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	jobId := req.URL.Query().Get("jobid")
 	if jobId == "" {
 		log.Error("missing job id parameter")
-		w.Write([]byte("missing job id parameter"))
+		_, _ = w.Write([]byte("missing job id parameter"))
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}

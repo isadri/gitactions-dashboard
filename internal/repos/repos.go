@@ -32,7 +32,7 @@ func GetRepos(org string) ([]Repo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer utils.Close(resp.Body)
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("get %s repositories failed: %s",
 			org, resp.Status)
