@@ -8,6 +8,8 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /bin/dashboard cmd/app/main.go
 
 FROM alpine:3.22
 
+ENV APP_BIND=0.0.0.0
+
 COPY --from=build /bin/dashboard /bin/dashboard
 COPY --from=build /app/web ./web
 RUN apk add --no-cache ca-certificates

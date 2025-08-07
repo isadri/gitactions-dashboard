@@ -23,9 +23,22 @@ func main() {
 		os.Exit(1)
 	}
 	server.RegisterFuncs()
+	address := getBindAddress()
 	log.Info("starting server")
-	log.Info("server listening on 0.0.0.0:8000")
-	log.Fatal(http.ListenAndServe("0.0.0.0:8000", nil))
+	log.Infof("server listening on %s", address)
+	log.Fatal(http.ListenAndServe(address, nil))
+}
+
+func getBindAddress() string {
+	port := os.Getenv("APP_PORT")
+	if port == "" {
+		port = "8000"
+	}
+	ip := os.Getenv("APP_BIND")
+	if ip == "" {
+		ip = "localhost"
+	}
+	return ip + ":" + port
 }
 
 func envFileExists() bool {
