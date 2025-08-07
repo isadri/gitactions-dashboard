@@ -155,7 +155,7 @@ func logsHandler(w http.ResponseWriter, req *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-	w.Write(logs)
+	_, _ = w.Write(logs)
 }
 
 func dateFormat(t time.Time) string {
