@@ -59,7 +59,7 @@ func repoHandler(w http.ResponseWriter, req *http.Request) {
 	repoName := req.URL.Query().Get("name")
 	if repoName == "" {
 		log.Error("repository name path parameter is required")
-		w.Write([]byte("repository name path parameter is required"))
+		_, _ = w.Write([]byte("repository name path parameter is required"))
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
@@ -91,14 +91,14 @@ func jobHandler(w http.ResponseWriter, req *http.Request) {
 	repoName := req.URL.Query().Get("repo")
 	if repoName == "" {
 		log.Error("missing repository name path paramter")
-		w.Write([]byte("missing repository name path paramter"))
+		_, _ = w.Write([]byte("missing repository name path paramter"))
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
 	runId := req.URL.Query().Get("runid")
 	if repoName == "" {
 		log.Error("missing workflow run id paramter")
-		w.Write([]byte("missing workflow run id paramter"))
+		_, _ = w.Write([]byte("missing workflow run id paramter"))
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}

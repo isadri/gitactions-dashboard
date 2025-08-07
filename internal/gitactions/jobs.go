@@ -49,7 +49,7 @@ func GetWorkflowRunJobs(owner, repo string, runId string) (*WorkflowRunsJobs, er
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer utils.Close(resp.Body)
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("get workflow run jobs failed: %s",
 			resp.Status)
@@ -76,7 +76,7 @@ func GetJobLogs(owner, repo string, jobId string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer utils.Close(resp.Body)
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("get logs failed: %s", resp.Status)
 	}

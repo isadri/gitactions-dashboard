@@ -54,7 +54,7 @@ func GetWorkflowRuns(owner, repo string) (*WorkflowRuns, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer utils.Close(resp.Body)
 	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("get workflow runs failed: %s", resp.Status)
 	}
