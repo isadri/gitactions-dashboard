@@ -15,6 +15,8 @@ A simple web application to display details of GitHub Actions workflow runs and 
     - [Run from source](#run-from-source)
     - [Run using Docker](#run-using-docker)
 
+---
+
 ## 📦 Features
 
 - 🧾 Displays detailed information about a GitHub Actions workflow run.
