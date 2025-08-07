@@ -25,8 +25,8 @@
         <td>{{.Branch}}</td>
         <td>
           <div class="status-indicator">
-            <span class="status-dot status-{{replace .Conclusion "-" "_" -1}}"></span>
-            <span class="status-text">{{.Conclusion}}</span>
+            <span class="status-dot status-{{replace .Status "-" "_" -1}}"></span>
+            <span class="status-text">{{.Status}}</span>
           </div>
         </td>
         <td>{{.HeadCommit.Message}}</td>

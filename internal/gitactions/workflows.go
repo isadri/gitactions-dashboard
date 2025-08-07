@@ -30,6 +30,7 @@ type Workflow struct {
 	Name       string
 	Branch     string `json:"head_branch"`
 	Conclusion string
+	Status     string
 	HTMLURL    string    `json:"html_url"`
 	RunAttempt int       `json:"run_attempt"`
 	StartedAt  time.Time `json:"run_started_at"`
