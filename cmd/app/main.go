@@ -18,6 +18,8 @@ func main() {
 		if err != nil {
 			log.Fatal("Error loading .env file")
 		}
+	} else {
+		log.Info(".env does not exist. Read from system environment variables")
 	}
 	if !requiredEnvVarsExist() {
 		os.Exit(1)
