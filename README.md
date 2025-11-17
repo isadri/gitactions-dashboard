@@ -57,7 +57,7 @@ and change the variables based on your needs. Then start the app with:
 
 ```bash
 go build -o dash cmd/app/main.go
-./build
+./dash
 ```
 
 Access the dashboard by visiting http://APP_BIND:APP_PORT.
